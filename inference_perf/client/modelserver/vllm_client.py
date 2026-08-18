@@ -58,7 +58,7 @@ class vLLMModelServerClient(openAIModelServerClient):
             key_path,
             lora_config=lora_config,
         )
-        self.metric_filters = [f"model_name={model_name", *additional_filters]
+        self.metric_filters = [f"model_name={model_name}", *additional_filters]
 
     def get_supported_apis(self) -> List[APIType]:
         return [APIType.Completion, APIType.Chat, APIType.AnthropicMessages]
@@ -72,7 +72,7 @@ class vLLMModelServerClient(openAIModelServerClient):
             request_latency=HistogramMetric("vllm:e2e_request_latency_seconds"),
             queue_length=GaugeMetric("vllm:num_requests_waiting"),
             time_per_output_token=HistogramMetric("vllm:request_time_per_output_token_seconds"),
-            custom_metrics={
+            custom_metrics= {
                 "num_requests_running": GaugeMetric("vllm:num_requests_running"),
                 "time_to_first_token": HistogramMetric("vllm:time_to_first_token_seconds"),
                 "inter_token_latency": HistogramMetric("vllm:inter_token_latency_seconds"),
@@ -102,5 +102,6 @@ class vLLMModelServerClient(openAIModelServerClient):
                 "kv_block_idle_before_evict": HistogramMetric("vllm:kv_block_idle_before_evict_seconds"),
                 "kv_block_lifetime": HistogramMetric("vllm:kv_block_lifetime_seconds"),
                 "kv_block_reuse_gap": HistogramMetric("vllm:kv_block_reuse_gap_seconds"),
+            }
             ,
         )
